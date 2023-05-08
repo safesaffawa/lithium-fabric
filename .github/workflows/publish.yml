@@ -1,4 +1,4 @@
-name: release-artifacts
+name: Publish Release
 
 on:
   release:
@@ -11,11 +11,10 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v1
         with:
-          distribution: 'adopt'
-          java-version: 17
+          java-version: 8
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Upload assets to CurseForge
@@ -25,5 +24,5 @@ jobs:
       - name: Upload assets to GitHub
         uses: AButler/upload-release-assets@v2.0
         with:
-          files: 'build/libs/*.jar;!build/libs/*-dev.jar;LICENSE'
+          files: 'build/libs/*;LICENSE'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
